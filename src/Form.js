@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import useForm from "./useForm";
-
+import validate from "./validateLogin";
 const Form = () => {
 
-    const { handleChange, handleSubmit, values } = useForm(submit);
+    const { handleChange, handleSubmit, values, errors } = useForm(submit, validate);
 
     function submit() {
         console.log("Submitted successfully.");
@@ -16,24 +16,27 @@ const Form = () => {
                 <label>Email</label>
                 <div>
                     <input 
+                        className={`${errors.email && "inputError"}`}
                         type="email" 
                         name="email" 
                         value={values.email} 
                         onChange={handleChange} 
                     />
-                    {/* // error message here */}
+                    {errors.email && <p className="error">{errors.email}</p>}
+
                 </div>
             </div>
             <div>
                 <label>Password</label>
                 <div>
                     <input 
+                        className={`${errors.password && "inputError"}`}
                         type="password" 
                         name="password" 
                         value={values.password} 
                         onChange={handleChange} 
                     />
-                    {/* // error message here */}
+                    {errors.password && <p className="error">{errors.password}</p>}
                 </div>
             </div>
             <button type="submit">Submit</button>
